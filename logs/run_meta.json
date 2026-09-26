@@ -1,0 +1,13 @@
+{
+  "started_at": 1790454908.6721241,
+  "episodes_per_variant": 15,
+  "seed_base": 1000,
+  "frame_skip": 8,
+  "episode_timeout": 2400,
+  "confidence_threshold": 0.6,
+  "variants": [
+    "rules",
+    "julia",
+    "julia_fallback"
+  ]
+}

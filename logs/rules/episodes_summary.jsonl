@@ -1,0 +1,15 @@
+{"agent_variant": "rules", "episode_id": 0, "seed": 1000, "survival_tics": 1014, "survival_seconds": 28.97142857142857, "kills": 3, "damage_taken": 84.0, "ammo_consumed": 50, "died": true}
+{"agent_variant": "rules", "episode_id": 1, "seed": 1001, "survival_tics": 903, "survival_seconds": 25.8, "kills": 3, "damage_taken": 69.0, "ammo_consumed": 50, "died": true}
+{"agent_variant": "rules", "episode_id": 2, "seed": 1002, "survival_tics": 630, "survival_seconds": 18.0, "kills": 2, "damage_taken": 108.0, "ammo_consumed": 33, "died": true}
+{"agent_variant": "rules", "episode_id": 3, "seed": 1003, "survival_tics": 746, "survival_seconds": 21.314285714285713, "kills": 4, "damage_taken": 93.0, "ammo_consumed": 33, "died": true}
+{"agent_variant": "rules", "episode_id": 4, "seed": 1004, "survival_tics": 812, "survival_seconds": 23.2, "kills": 5, "damage_taken": 105.0, "ammo_consumed": 23, "died": true}
+{"agent_variant": "rules", "episode_id": 5, "seed": 1005, "survival_tics": 1701, "survival_seconds": 48.6, "kills": 10, "damage_taken": 196.0, "ammo_consumed": 50, "died": true}
+{"agent_variant": "rules", "episode_id": 6, "seed": 1006, "survival_tics": 1936, "survival_seconds": 55.31428571428572, "kills": 22, "damage_taken": 292.0, "ammo_consumed": 50, "died": true}
+{"agent_variant": "rules", "episode_id": 7, "seed": 1007, "survival_tics": 698, "survival_seconds": 19.942857142857143, "kills": 2, "damage_taken": 102.0, "ammo_consumed": 33, "died": true}
+{"agent_variant": "rules", "episode_id": 8, "seed": 1008, "survival_tics": 340, "survival_seconds": 9.714285714285714, "kills": 2, "damage_taken": 105.0, "ammo_consumed": 11, "died": true}
+{"agent_variant": "rules", "episode_id": 9, "seed": 1009, "survival_tics": 655, "survival_seconds": 18.714285714285715, "kills": 4, "damage_taken": 81.0, "ammo_consumed": 36, "died": true}
+{"agent_variant": "rules", "episode_id": 10, "seed": 1010, "survival_tics": 1087, "survival_seconds": 31.057142857142857, "kills": 4, "damage_taken": 66.0, "ammo_consumed": 43, "died": true}
+{"agent_variant": "rules", "episode_id": 11, "seed": 1011, "survival_tics": 606, "survival_seconds": 17.314285714285713, "kills": 2, "damage_taken": 102.0, "ammo_consumed": 23, "died": true}
+{"agent_variant": "rules", "episode_id": 12, "seed": 1012, "survival_tics": 1151, "survival_seconds": 32.885714285714286, "kills": 6, "damage_taken": 328.0, "ammo_consumed": 33, "died": true}
+{"agent_variant": "rules", "episode_id": 13, "seed": 1013, "survival_tics": 1329, "survival_seconds": 37.97142857142857, "kills": 4, "damage_taken": 139.0, "ammo_consumed": 45, "died": true}
+{"agent_variant": "rules", "episode_id": 14, "seed": 1014, "survival_tics": 819, "survival_seconds": 23.4, "kills": 5, "damage_taken": 104.0, "ammo_consumed": 42, "died": true}

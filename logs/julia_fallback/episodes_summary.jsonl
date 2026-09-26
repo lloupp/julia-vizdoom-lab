@@ -1,0 +1,15 @@
+{"agent_variant": "julia_fallback", "episode_id": 0, "seed": 1000, "survival_tics": 1366, "survival_seconds": 39.02857142857143, "kills": 2, "damage_taken": 102.0, "ammo_consumed": 40, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 1, "seed": 1001, "survival_tics": 1686, "survival_seconds": 48.17142857142857, "kills": 11, "damage_taken": 105.0, "ammo_consumed": 74, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 2, "seed": 1002, "survival_tics": 874, "survival_seconds": 24.97142857142857, "kills": 0, "damage_taken": 108.0, "ammo_consumed": 23, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 3, "seed": 1003, "survival_tics": 1754, "survival_seconds": 50.114285714285714, "kills": 7, "damage_taken": 216.0, "ammo_consumed": 37, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 4, "seed": 1004, "survival_tics": 1009, "survival_seconds": 28.82857142857143, "kills": 1, "damage_taken": 125.0, "ammo_consumed": 1, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 5, "seed": 1005, "survival_tics": 1035, "survival_seconds": 29.571428571428573, "kills": 1, "damage_taken": 128.0, "ammo_consumed": 1, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 6, "seed": 1006, "survival_tics": 1239, "survival_seconds": 35.4, "kills": 5, "damage_taken": 174.0, "ammo_consumed": 26, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 7, "seed": 1007, "survival_tics": 1813, "survival_seconds": 51.8, "kills": 10, "damage_taken": 166.0, "ammo_consumed": 18, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 8, "seed": 1008, "survival_tics": 479, "survival_seconds": 13.685714285714285, "kills": 3, "damage_taken": 81.0, "ammo_consumed": 16, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 9, "seed": 1009, "survival_tics": 1583, "survival_seconds": 45.22857142857143, "kills": 7, "damage_taken": 112.0, "ammo_consumed": 14, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 10, "seed": 1010, "survival_tics": 2375, "survival_seconds": 67.85714285714286, "kills": 15, "damage_taken": 108.0, "ammo_consumed": 129, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 11, "seed": 1011, "survival_tics": 1161, "survival_seconds": 33.17142857142857, "kills": 0, "damage_taken": 131.0, "ammo_consumed": 14, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 12, "seed": 1012, "survival_tics": 576, "survival_seconds": 16.457142857142856, "kills": 2, "damage_taken": 166.0, "ammo_consumed": 2, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 13, "seed": 1013, "survival_tics": 1811, "survival_seconds": 51.74285714285714, "kills": 11, "damage_taken": 397.0, "ammo_consumed": 50, "died": true}
+{"agent_variant": "julia_fallback", "episode_id": 14, "seed": 1014, "survival_tics": 515, "survival_seconds": 14.714285714285714, "kills": 0, "damage_taken": 105.0, "ammo_consumed": 1, "died": true}
