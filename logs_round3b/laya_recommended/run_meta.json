@@ -1,0 +1,14 @@
+{
+  "started_at": 1790534936.1866746,
+  "variant": "laya_recommended",
+  "seeds_a": "1000-1019",
+  "seeds_b": "7000-7029",
+  "frame_skip": 8,
+  "episode_timeout": 2400,
+  "max_hold_steps": 4,
+  "candidate_order": "fixed decision.actions.ALL_ACTIONS order",
+  "laya_router": "automatic English/general routing",
+  "laya_boolean_encoding": "neutral A/B choice normalized to P(true)",
+  "julia_boolean_encoding": "native noul",
+  "confidence_thresholds": false
+}
