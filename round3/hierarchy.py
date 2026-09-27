@@ -57,7 +57,7 @@ def _choice(
             action=ordered[0],
             score=1.0,
             score_kind="forced_single_valid_action",
-            score_is_calibrated=True,
+            score_is_calibrated=False,
             boolean_probabilities=prior_booleans,
             stage=stage + ":forced",
             latency_ms=prior_latency_ms,
@@ -113,7 +113,7 @@ def decide_hierarchically(
             action=available[0],
             score=1.0,
             score_kind="forced_single_valid_action",
-            score_is_calibrated=True,
+            score_is_calibrated=False,
             stage="single_valid_action",
             model_calls=0,
         )

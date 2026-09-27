@@ -30,6 +30,25 @@ def by_seed(rows: List[dict], key: str) -> Dict[int, float]:
     return {int(row["seed"]): float(row[key]) for row in rows if row.get(key) is not None}
 
 
+def model_refresh_latencies(rows: List[dict]) -> List[float]:
+    return [
+        float(row["latency_ms"])
+        for row in rows
+        if int((row.get("round3_trace") or {}).get("model_calls", 0)) > 0
+    ]
+
+
+def percentile(values: List[float], p: float) -> float:
+    if not values:
+        return 0.0
+    data = sorted(values)
+    idx = (len(data) - 1) * p
+    lo = int(idx)
+    hi = min(lo + 1, len(data) - 1)
+    frac = idx - lo
+    return data[lo] + (data[hi] - data[lo]) * frac
+
+
 def fmt_ci(c) -> str:
     if c.mean_diff is None:
         return "n/d"
@@ -78,6 +97,18 @@ def main() -> None:
         vals = [avg(summaries[v], key) for v in VARIANTS]
         rendered = [f"{x:.1%}" for x in vals] if key == "cache_hit_rate" else [f"{x:.2f}" for x in vals]
         lines.append(f"| {label} | {rendered[0]} | {rendered[1]} | {rendered[2]} |")
+
+    julia_lat = model_refresh_latencies(decisions["julia_recommended"])
+    laya_lat = model_refresh_latencies(decisions["laya_recommended"])
+    lines.append(
+        f"| Latência média por refresh (ms) | n/d | "
+        f"{(mean(julia_lat) if julia_lat else 0.0):.2f} | "
+        f"{(mean(laya_lat) if laya_lat else 0.0):.2f} |"
+    )
+    lines.append(
+        f"| Latência p95 por refresh (ms) | n/d | "
+        f"{percentile(julia_lat, 0.95):.2f} | {percentile(laya_lat, 0.95):.2f} |"
+    )
 
     lines += ["", "## Ações executadas", ""]
     action_counts = {v: Counter(row["action"] for row in decisions[v]) for v in VARIANTS}
