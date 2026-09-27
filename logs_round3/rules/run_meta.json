@@ -1,0 +1,12 @@
+{
+  "started_at": 1790517871.7918553,
+  "variant": "rules",
+  "seeds_a": "1000-1019",
+  "seeds_b": "7000-7029",
+  "frame_skip": 8,
+  "episode_timeout": 2400,
+  "max_hold_steps": 4,
+  "candidate_order": "fixed decision.actions.ALL_ACTIONS order",
+  "laya_checkpoint": null,
+  "julia_confidence_gate": false
+}
