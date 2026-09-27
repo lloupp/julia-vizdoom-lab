@@ -57,3 +57,10 @@ Resultado em [`reports/round2_report.md`](reports/round2_report.md): o teste de 
 ## agent_decision_eval/: Laya-multilingual vs. Julia-1 para ações de agente de código
 
 Subprojeto independente (`agent_decision_eval/README.md`) -- mesmo espírito ("testar o modelo de decisão antes de confiar nele"), domínio diferente: roteamento de ferramentas de um agente de código (`answer`/`read`/`grep`/`find`/`ls`/`write`/`edit`/`bash`/`web_search`/`stop`) para uso no Pi Agent, não VizDoom/Minecraft. Compara Laya sozinho, Julia sozinho, os dois em paralelo e Laya-principal-com-fallback-no-Julia em >=500 decisões reais por modo. Resultado em [`agent_decision_eval/reports/agent_decision_report.md`](agent_decision_eval/reports/agent_decision_report.md): nenhuma das 4 configurações atinge a barra de accuracy exigida (85% geral / 95% em write-edit-bash) neste vocabulário de ações -- nenhuma é recomendada para produção no estado atual.
+
+
+## Rodada 3: Julia-1 vs Laya no VizDoom, usando a interface recomendada
+
+A rodada 3 é isolada em `round3/`, `experiments/run_experiment_v3.py` e `logs_round3/`. Ela corrige o protocolo de uso: Julia usa perguntas tipadas nomeadas e sem gate baseado em `max_probability`; Laya usa o `Router` recomendado com `model="typed-decisions"`; ambos recebem o mesmo estado estruturado e uma hierarquia `noul -> choice` em ordem fixa, com decisões orientadas a eventos em vez de uma nova inferência a cada loop.
+
+Passo a passo: [`docs/REPRODUCE_ROUND3.md`](docs/REPRODUCE_ROUND3.md).

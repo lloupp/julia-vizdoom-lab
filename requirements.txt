@@ -3,5 +3,5 @@ huggingface_hub
 torch
 transformers
 pytest
-laya
+laya>=0.3.20
 psutil
