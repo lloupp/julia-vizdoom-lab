@@ -1,0 +1,20 @@
+{
+  "julia_raw": {
+    "states_tested": 150,
+    "instability_rate": 0.9333333333333333,
+    "avg_majority_fraction": 0.6311111111111113,
+    "avg_distinct_choices": 2.3
+  },
+  "julia_filtered": {
+    "states_tested": 150,
+    "instability_rate": 0.96,
+    "avg_majority_fraction": 0.6466666666666666,
+    "avg_distinct_choices": 2.2933333333333334
+  },
+  "overall": {
+    "states_tested": 300,
+    "instability_rate": 0.9466666666666667,
+    "avg_majority_fraction": 0.6388888888888888,
+    "avg_distinct_choices": 2.296666666666667
+  }
+}

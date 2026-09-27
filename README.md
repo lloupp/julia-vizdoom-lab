@@ -44,6 +44,12 @@ PYTHONPATH=. python experiments/report.py
 
 Gera `logs/<variant>/{decisions.jsonl,episodes_summary.jsonl}` (dados brutos reais) e `reports/comparative_report.md` (relatório calculado 100% a partir desses logs, sem edição manual). Veja `docs/REPRODUCE.md` para o passo a passo completo e os parâmetros exatos usados na rodada oficial.
 
-## Resultado
+## Resultado (rodada 1)
 
 O relatório em [`reports/comparative_report.md`](reports/comparative_report.md) compara as 3 variantes (regras / Julia-1 / Julia-1+fallback) em 15 episódios pareados cada, com tempo de sobrevivência, inimigos eliminados, dano recebido, munição consumida, confiança média, taxa de fallback, latência do modelo (p50/p95) e taxa de decisões inválidas.
+
+## Rodada 2: filtro de ações, teste de invariância e estatística com IC 95%
+
+A rodada 2 (`docs/REPRODUCE_ROUND2.md`) não altera nada da rodada 1 -- adiciona 4 agentes (`rules`, `julia_raw`, `julia_filtered`, `julia_filtered_fallback` em 3 thresholds), um filtro determinístico de ações (`decision/agents/filter.py`) que só *restringe* o que o Julia-1 pode escolher, um teste real de invariância à ordem das opções (`experiments/invariance_test.py`), comparação estatística pareada com IC 95% (`experiments/stats.py`), 50 seeds por variante (20 repetidas da rodada 1 + 30 novas nunca usadas no desenvolvimento) e um critério objetivo de avanço ao `minecraft-mbot`.
+
+Resultado em [`reports/round2_report.md`](reports/round2_report.md): o teste de invariância encontrou que a escolha do Julia-1 muda em ~94-96% dos estados reais testados apenas por reordenar as mesmas opções (ex.: a mesma pergunta recebe "esperar" com 98% de "confiança" numa ordem e "explorar" com 83% na ordem invertida) -- por isso o veredito da rodada 2 é não avançar ainda para o Minecraft, apesar de sobrevivência e kills não piorarem significativamente contra o baseline.

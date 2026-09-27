@@ -331,6 +331,15 @@ def build_report(logs_round2: Path, logs_round1: Path) -> str:
         f"de invariância."
     )
     lines.append("")
+    lines.append(
+        "Os 3 thresholds de `julia_filtered_fallback` reusam a taxa de "
+        "instabilidade medida em `julia_filtered`: o threshold só decide se "
+        "o sistema *aceita ou descarta* a resposta do Julia-1, não muda o "
+        "que é oferecido a ele nem como ele decide -- a sensibilidade à "
+        "ordem é uma propriedade da chamada ao modelo em si, idêntica nas "
+        "4 variantes filtradas."
+    )
+    lines.append("")
 
     candidates = [v for v in present_variants if v.startswith("julia_filtered")]
     verdict_rows = []
