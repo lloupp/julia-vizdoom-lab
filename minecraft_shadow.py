@@ -43,6 +43,17 @@ class MinecraftJuliaShadow:
     def __init__(self, engine) -> None:
         self._engine = engine
 
+    def invariance_check(self, state: Mapping, available_actions: Sequence[str] = MINECRAFT_ACTIONS) -> dict:
+        canonical = tuple(a for a in available_actions if a in ACTION_DESCRIPTIONS)
+        forward = self.decide(state, canonical)
+        reverse = self.decide(state, tuple(reversed(canonical)))
+        return {
+            "stable": forward.valid and reverse.valid and forward.action == reverse.action,
+            "forward": forward,
+            "reverse": reverse,
+            "actions": canonical,
+        }
+
     def decide(self, state: Mapping, available_actions: Sequence[str] = MINECRAFT_ACTIONS) -> ShadowDecision:
         offered = tuple(a for a in available_actions if a in ACTION_DESCRIPTIONS)
         if not offered:
