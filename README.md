@@ -64,3 +64,14 @@ Subprojeto independente (`agent_decision_eval/README.md`) -- mesmo espírito ("t
 A rodada 3 é isolada em `round3/`, `experiments/run_experiment_v3.py` e `logs_round3/`. Ela corrige o protocolo de uso: Julia usa perguntas tipadas nomeadas e sem gate baseado em `max_probability`; Laya usa o `Router` recomendado com `model="typed-decisions"`; ambos recebem o mesmo estado estruturado e uma hierarquia `noul -> choice` em ordem fixa, com decisões orientadas a eventos em vez de uma nova inferência a cada loop.
 
 Passo a passo: [`docs/REPRODUCE_ROUND3.md`](docs/REPRODUCE_ROUND3.md).
+
+
+## Rodada 3B: correção model-native do Laya
+
+A Rodada 3 revelou `0` ataques para o Laya. A Rodada 3B preserva a execução
+anterior e corrige duas escolhas de integração conforme a documentação do
+modelo: não força o checkpoint especializado `typed-decisions` em VizDoom e
+substitui `noul` por `choice` binário com chaves neutras no backend Laya,
+normalizando o resultado de volta para a mesma hierarquia usada no jogo.
+
+Reprodução: [`docs/REPRODUCE_ROUND3B.md`](docs/REPRODUCE_ROUND3B.md).
