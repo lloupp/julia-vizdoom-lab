@@ -37,3 +37,30 @@ def test_shadow_marks_model_choice_outside_allowlist_invalid():
     result = MinecraftJuliaShadow(FakeEngine("bash", 0.99)).decide({}, ["craft", "wait"])
     assert result.valid is False
     assert result.error == "invalid_action"
+
+
+class FirstOptionEngine:
+    def predict(self, state, questions):
+        offered = list(questions["action"]["criteria"])
+        choice = offered[0]
+        return {"answers": {"action": {
+            "choice": choice,
+            "probabilities": {a: (1.0 if a == choice else 0.0) for a in offered},
+            "max_probability": 1.0,
+        }}}
+
+
+def test_invariance_check_detects_option_order_instability():
+    result = MinecraftJuliaShadow(FirstOptionEngine()).invariance_check(
+        {"health": 20, "food": 20}, ["gather", "craft", "wait"]
+    )
+    assert result["stable"] is False
+    assert result["forward"].action == "gather"
+    assert result["reverse"].action == "wait"
+
+
+def test_invariance_check_accepts_same_choice_across_orderings():
+    result = MinecraftJuliaShadow(FakeEngine("craft", 0.9)).invariance_check(
+        {"health": 20, "food": 20}, ["gather", "craft", "wait"]
+    )
+    assert result["stable"] is True
