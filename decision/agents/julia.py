@@ -70,22 +70,35 @@ class JuliaAgent(DecisionAgent):
                 f"Original error: {type(exc).__name__}: {exc}"
             ) from exc
 
+    def predict_raw(self, state: GameState, ordered_actions: Sequence[Action]) -> dict:
+        """Calls the real model with candidates in exactly the given order.
+
+        Python dicts preserve insertion order, so ``criteria`` presents the
+        options to Julia-1 in ``ordered_actions`` order. Returns the raw
+        ``answers["action"]`` dict (keys: ``choice``, ``probabilities``,
+        ``max_probability``). Both ``decide()`` and the order-invariance test
+        (``experiments/invariance_test.py``) go through this same method, so
+        they exercise the identical code path -- the only thing that varies
+        between them is the order of ``ordered_actions``.
+        """
+        criteria = {a.value: ACTION_DESCRIPTIONS[a] for a in ordered_actions}
+        result = self._engine.predict(
+            state=describe_state(state),
+            questions={
+                "action": {
+                    "type": "choice",
+                    "instructions": "Which action should the agent take right now?",
+                    "criteria": criteria,
+                }
+            },
+        )
+        return result["answers"]["action"]
+
     def decide(self, state: GameState, available_actions: Sequence[Action]) -> Decision:
-        criteria = {a.value: ACTION_DESCRIPTIONS[a] for a in available_actions}
         start = time.perf_counter()
         try:
-            result = self._engine.predict(
-                state=describe_state(state),
-                questions={
-                    "action": {
-                        "type": "choice",
-                        "instructions": "Which action should the agent take right now?",
-                        "criteria": criteria,
-                    }
-                },
-            )
+            answer = self.predict_raw(state, available_actions)
             latency_ms = (time.perf_counter() - start) * 1000
-            answer = result["answers"]["action"]
             choice_id = answer["choice"]
             probabilities: Dict[str, float] = {
                 str(k): float(v) for k, v in dict(answer["probabilities"]).items()

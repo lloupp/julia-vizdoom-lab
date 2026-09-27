@@ -66,3 +66,31 @@ def test_reset_clears_history():
     guard.reset()
     decision = guard.decide(STATE, ALL_ACTIONS)
     assert decision.action == Action.SEEK_HEALTH
+
+
+def test_override_records_which_action_it_replaced():
+    guard = AntiLoopGuard(StuckAgent(Action.SEEK_HEALTH), max_repeat=3)
+    decisions = [guard.decide(STATE, ALL_ACTIONS) for _ in range(3)]
+    assert decisions[2].antiloop_override is True
+    assert decisions[2].overridden_from == Action.SEEK_HEALTH
+    assert decisions[0].overridden_from is None
+
+
+def test_action_specific_limit_breaks_wait_loops_sooner():
+    # General limit is generous (5), but WAIT gets a tighter leash (2), as
+    # round 1 found Julia defaults to "esperar" far more than the baseline.
+    guard = AntiLoopGuard(
+        StuckAgent(Action.WAIT), max_repeat=5, action_max_repeat={Action.WAIT: 2}
+    )
+    decisions = [guard.decide(STATE, ALL_ACTIONS) for _ in range(2)]
+    assert decisions[0].action == Action.WAIT
+    assert decisions[1].action != Action.WAIT
+    assert decisions[1].overridden_from == Action.WAIT
+
+
+def test_action_specific_limit_does_not_tighten_other_actions():
+    guard = AntiLoopGuard(
+        StuckAgent(Action.EXPLORE), max_repeat=5, action_max_repeat={Action.WAIT: 2}
+    )
+    decisions = [guard.decide(STATE, ALL_ACTIONS) for _ in range(4)]
+    assert all(d.action == Action.EXPLORE for d in decisions)

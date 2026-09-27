@@ -43,6 +43,9 @@ class DecisionLogger:
             "step": step,
             "state": state.as_dict(),
             "available_actions": [a.value for a in available_actions],
+            "offered_actions": [
+                a.value for a in (decision.offered_actions or available_actions)
+            ],
             "action": decision.action.value,
             "confidence": decision.confidence,
             "model_confidence": decision.model_confidence,
@@ -51,6 +54,7 @@ class DecisionLogger:
             "latency_ms": decision.latency_ms,
             "fallback_used": decision.fallback_used,
             "antiloop_override": decision.antiloop_override,
+            "overridden_from": decision.overridden_from.value if decision.overridden_from else None,
             "error": decision.error,
         }
         if extra:

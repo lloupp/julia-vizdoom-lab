@@ -1,17 +1,21 @@
 """Wraps any agent to deterministically break "stuck" decision loops.
 
 A loop is declared when the wrapped agent has picked the *same* action for
-``max_repeat`` consecutive steps while the (coarse) game state also stayed
-the same -- i.e. the action is not changing anything (e.g. repeatedly
-choosing "buscar_vida" while stuck against a wall). When that happens, the
-guard deterministically overrides the action using a fixed priority list,
-so the outcome never depends on randomness.
+N consecutive steps while the (coarse) game state also stayed the same --
+i.e. the action is not changing anything (e.g. repeatedly choosing
+"buscar_vida" while stuck against a wall). ``N`` is ``max_repeat`` by
+default, but can be tightened per action via ``action_max_repeat`` --
+round 1 found Julia-1 defaults to "esperar" far more than the rule
+baseline when nothing is visible, so round 2 watches it with a shorter
+leash. When a loop is declared, the guard deterministically overrides the
+action using a fixed priority list, so the outcome never depends on
+randomness.
 """
 
 from __future__ import annotations
 
 from collections import deque
-from typing import Deque, Sequence, Tuple
+from typing import Deque, Dict, Optional, Sequence, Tuple
 
 from decision.actions import Action
 from decision.agents.base import Decision, DecisionAgent
@@ -29,20 +33,28 @@ _OVERRIDE_PRIORITY: Tuple[Action, ...] = (
 
 
 class AntiLoopGuard(DecisionAgent):
-    def __init__(self, agent: DecisionAgent, max_repeat: int = 5) -> None:
+    def __init__(
+        self,
+        agent: DecisionAgent,
+        max_repeat: int = 5,
+        action_max_repeat: Optional[Dict[Action, int]] = None,
+    ) -> None:
         self.agent = agent
         self.max_repeat = max_repeat
+        self.action_max_repeat = dict(action_max_repeat or {})
         self.name = f"{agent.name}+antiloop_guard"
-        self._history: Deque[Tuple[tuple, Action]] = deque(maxlen=max_repeat)
+        history_capacity = max([max_repeat, *self.action_max_repeat.values()])
+        self._history: Deque[Tuple[tuple, Action]] = deque(maxlen=history_capacity)
 
     def decide(self, state: GameState, available_actions: Sequence[Action]) -> Decision:
         decision = self.agent.decide(state, available_actions)
         signature = state.coarse_signature()
         self._history.append((signature, decision.action))
 
-        if self._is_stuck():
+        if self._is_stuck(decision.action):
             alternative = self._pick_alternative(decision.action, available_actions)
             if alternative != decision.action:
+                overridden_from = decision.action
                 decision = Decision(
                     action=alternative,
                     confidence=decision.confidence,
@@ -52,6 +64,8 @@ class AntiLoopGuard(DecisionAgent):
                     latency_ms=decision.latency_ms,
                     fallback_used=decision.fallback_used,
                     antiloop_override=True,
+                    overridden_from=overridden_from,
+                    offered_actions=decision.offered_actions,
                     error=decision.error,
                 )
                 # The override itself becomes the newest history entry, so a
@@ -61,11 +75,16 @@ class AntiLoopGuard(DecisionAgent):
 
         return decision
 
-    def _is_stuck(self) -> bool:
-        if len(self._history) < self.max_repeat:
+    def _limit_for(self, action: Action) -> int:
+        return self.action_max_repeat.get(action, self.max_repeat)
+
+    def _is_stuck(self, action: Action) -> bool:
+        limit = self._limit_for(action)
+        if len(self._history) < limit:
             return False
-        signatures = {sig for sig, _ in self._history}
-        actions = {act for _, act in self._history}
+        window = list(self._history)[-limit:]
+        signatures = {sig for sig, _ in window}
+        actions = {act for _, act in window}
         return len(signatures) == 1 and len(actions) == 1
 
     @staticmethod

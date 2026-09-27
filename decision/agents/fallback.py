@@ -40,6 +40,7 @@ class JuliaWithFallbackAgent(DecisionAgent):
                 probabilities=julia_decision.probabilities,
                 latency_ms=julia_decision.latency_ms,
                 fallback_used=False,
+                offered_actions=julia_decision.offered_actions,
                 error=None,
             )
 
@@ -52,6 +53,7 @@ class JuliaWithFallbackAgent(DecisionAgent):
             probabilities=julia_decision.probabilities,
             latency_ms=julia_decision.latency_ms,
             fallback_used=True,
+            offered_actions=julia_decision.offered_actions,
             error=julia_decision.error,
         )
 
