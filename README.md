@@ -75,3 +75,14 @@ substitui `noul` por `choice` binário com chaves neutras no backend Laya,
 normalizando o resultado de volta para a mesma hierarquia usada no jogo.
 
 Reprodução: [`docs/REPRODUCE_ROUND3B.md`](docs/REPRODUCE_ROUND3B.md).
+
+
+## Rodada 3C: direct choice sem gate booleano
+
+A Rodada 3B mostrou que `survival_priority` permanecia positivo em 100% das
+chamadas frescas do Laya e, por estar antes de `engage_enemy`, bloqueava o
+ramo de ataque. A Rodada 3C remove essa arquitetura: seleção de ação é tratada
+como uma única `choice` entre ações válidas, pois elas são mutuamente
+exclusivas. Julia e Laya recebem exatamente o mesmo estado, critérios e ordem.
+
+Reprodução: [`docs/REPRODUCE_ROUND3C.md`](docs/REPRODUCE_ROUND3C.md).
